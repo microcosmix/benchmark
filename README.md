@@ -38,3 +38,37 @@ Este repositorio está en constante evolución mientras se exploran distintos pa
 ---
 
 ¿Quieres que este repo use algún runner como Vitest + Bench o prefieres todo manual con `performance.now()` y registros?
+
+## Primeras impresiones del archivo de configuracion
+
+Nota: el archivo de configuracion se colocara en la raiz de un proyecto como microcosmix.config.js
+
+Este seria un posible ejemplo de lo que se ha estado barajando
+
+```javascript
+
+export const microcosmixConfig = {
+  version: '1.0.0',
+  contenedores:" [
+    {
+      name: string,
+      url: string,
+      version: string | array<string>,
+      lazy: boolean,
+      type: 'iframe' | 'webcomponent' | 'custom-element',
+      preload: {},
+      fallbackUrl: string,
+      metrics: boolean,
+      queues: array<string>,;
+  ],
+  queues: [
+    {
+        name: string,
+        version: string,
+        type: 'pubsub' | 'request-response',
+    }
+  ]
+
+}
+
+```
