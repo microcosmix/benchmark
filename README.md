@@ -45,11 +45,10 @@ Este repositorio está en constante evolución mientras se exploran distintos pa
 
 Este seria un posible ejemplo de lo que se ha estado barajando
 
-```javascript
-
+```typescript
 export const microcosmixConfig = {
   version: '1.0.0',
-  contenedores:" [
+  containers:" [
     {
       name: string,
       url: string,
@@ -82,6 +81,7 @@ export const microcosmixConfig = {
         name: string,
         version: string,
         type: 'pubsub' | 'request-response',
+        autoStart: boolean,
     }
   ]
 }
@@ -89,3 +89,28 @@ export const microcosmixConfig = {
 ```
 
 Repensar la declaracion de **mockEvents** sobre todo para cuando se usa desde uno de los contenedores, quizas se pueda hacer un mock de la cola y que el contenedor lo use como si fuera una cola real, pero en realidad es un mock. Esto es algo que se puede hacer con el mock de la cola, pero no se si es necesario hacerlo desde el archivo de configuracion o desde el contenedor.
+
+El usuario deberia poder eligir que colas quiere que se inicien al principio este seria el comportamiento por defecto y que colas quiere iniciar manualmente osea que inicie desde el codigo en algun momento de la aplicacion, esto garantiza que una cola pueda abrirse por voluntad del usuario y cerrarse cuando este lo requiera, dandole al usuario mas capavidades para controlar el flujo de datos y la comunicacion entre los microfrontends.
+
+## Propuesta de modelo de eventos
+
+```json
+{
+  "header": {
+    "name": "chat.message",
+    "version": "2.1.0",
+    "timestamp": "2025-05-11T10:23:45.123Z",
+    "origin": "https://app.example.com",
+    "requestId": "abc123-def456",
+    "correlationId": "xyz789",
+    "meta": {
+      "environment": "staging",
+      "userAgent": "Chrome/113.0"
+    }
+  },
+  "payload": {
+    "text": "¡Hola! 😊",
+    "userId": "u123"
+  }
+}
+```
