@@ -41,7 +41,7 @@ Este repositorio está en constante evolución mientras se exploran distintos pa
 
 ## Primeras impresiones del archivo de configuracion
 
-Nota: el archivo de configuracion se colocara en la raiz de un proyecto como microcosmix.config.js
+**Nota:** el archivo de configuracion se colocara en la raiz de un proyecto como microcosmix.config.js
 
 Este seria un posible ejemplo de lo que se ha estado barajando
 
@@ -54,12 +54,28 @@ export const microcosmixConfig = {
       name: string,
       url: string,
       version: string | array<string>,
-      lazy: boolean,
       type: 'iframe' | 'webcomponent' | 'custom-element',
-      preload: {},
+      preload: boolean,
       fallbackUrl: string,
       metrics: boolean,
-      queues: array<string>,;
+      queues: array<string>,
+      mockEvents: [
+        {
+          queue: 'user.data',
+          version: '1.0.0',
+          delay: 3000,
+          payload: {
+            name: 'Nelson',
+            role: 'admin'
+          }
+        },
+        {
+          queue: 'theme.change',
+          version: '2.0.0',
+          payload: { theme: 'dark' }
+        }
+      ],
+    }
   ],
   queues: [
     {
@@ -68,7 +84,8 @@ export const microcosmixConfig = {
         type: 'pubsub' | 'request-response',
     }
   ]
-
 }
 
 ```
+
+Repensar la declaracion de **mockEvents** sobre todo para cuando se usa desde uno de los contenedores, quizas se pueda hacer un mock de la cola y que el contenedor lo use como si fuera una cola real, pero en realidad es un mock. Esto es algo que se puede hacer con el mock de la cola, pero no se si es necesario hacerlo desde el archivo de configuracion o desde el contenedor.
